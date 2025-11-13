@@ -9,9 +9,9 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { 
   LayoutDashboard, 
-  FolderOpen, 
   MessageSquare, 
-  Settings,
+  // FolderOpen, 
+  // Settings,
 } from "lucide-react"
 
 interface MobileMenuProps {
@@ -22,9 +22,9 @@ interface MobileMenuProps {
 const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/vehicles", icon: Car, label: "Vehículos" },
-  { href: "/admin/categories", icon: FolderOpen, label: "Categorías" },
+  // { href: "/admin/categories", icon: FolderOpen, label: "Categorías" },
   { href: "/admin/inquiries", icon: MessageSquare, label: "Consultas" },
-  { href: "/admin/settings", icon: Settings, label: "Configuración" },
+  // { href: "/admin/settings", icon: Settings, label: "Configuración" },
 ]
 
 export function MobileMenu({ userName, userEmail }: MobileMenuProps) {

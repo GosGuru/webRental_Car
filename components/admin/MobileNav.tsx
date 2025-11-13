@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation"
 import { 
   LayoutDashboard, 
   Car, 
-  FolderOpen, 
   MessageSquare, 
-  Settings,
+  // FolderOpen, 
+  // Settings,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -30,18 +30,18 @@ const navItems = [
     label: "Consultas",
     activePattern: /^\/admin\/inquiries/,
   },
-  {
-    href: "/admin/categories",
-    icon: FolderOpen,
-    label: "Categorías",
-    activePattern: /^\/admin\/categories/,
-  },
-  {
-    href: "/admin/settings",
-    icon: Settings,
-    label: "Ajustes",
-    activePattern: /^\/admin\/settings/,
-  },
+  // {
+  //   href: "/admin/categories",
+  //   icon: FolderOpen,
+  //   label: "Categorías",
+  //   activePattern: /^\/admin\/categories/,
+  // },
+  // {
+  //   href: "/admin/settings",
+  //   icon: Settings,
+  //   label: "Ajustes",
+  //   activePattern: /^\/admin\/settings/,
+  // },
 ]
 
 export function MobileNav() {

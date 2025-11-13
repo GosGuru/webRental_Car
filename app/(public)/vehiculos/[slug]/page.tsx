@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import type { Metadata } from "next"
-import { ArrowLeft, Calendar, Gauge, Fuel, Cog, Car, MapPin, Phone, Mail } from "lucide-react"
+import { ArrowLeft, Calendar, Gauge, Fuel, Cog, Car, MapPin, Phone, Mail, MessageCircle } from "lucide-react"
 import prisma from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -156,6 +156,11 @@ export default async function VehicleDetailPage({
   const { slug } = await params
   const vehicle = await getVehicle(slug)
   const similarVehicles = await getSimilarVehicles(slug, vehicle.brand)
+
+  // Mensaje de WhatsApp predefinido
+  const whatsappNumber = "34675689111" // Número sin el + ni espacios
+  const whatsappMessage = `Hola, estoy interesado en el ${vehicle.brand} ${vehicle.model} ${vehicle.year}. ¿Podrían darme más información?`
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
 
   return (
     <div className="min-h-screen bg-background">
@@ -380,6 +385,21 @@ export default async function VehicleDetailPage({
                     Contacta con nosotros para más información o para agendar una visita.
                   </p>
                 </div>
+
+                {/* Botón de WhatsApp destacado */}
+                <Button asChild size="lg" className="w-full bg-green-600 hover:bg-green-700 text-white">
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="h-5 w-5" />
+                    Contactar por WhatsApp
+                  </a>
+                </Button>
+
+                <Separator />
 
                 <div className="space-y-3">
                   <a

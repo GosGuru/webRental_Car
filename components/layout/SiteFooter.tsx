@@ -32,12 +32,22 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/vehiculos" className="text-muted-foreground hover:text-primary transition-colors">
-                  Catálogo de Vehículos
+                  Vehículos
+                </Link>
+              </li>
+              <li>
+                <Link href="/sobre-nosotros" className="text-muted-foreground hover:text-primary transition-colors">
+                  Sobre Nosotros
+                </Link>
+              </li>
+              <li>
+                <Link href="/contacto" className="text-muted-foreground hover:text-primary transition-colors">
+                  Contacto
                 </Link>
               </li>
               <li>
                 <Link href="/admin" className="text-muted-foreground hover:text-primary transition-colors">
-                  Panel Administrativo
+                  Panel Admin
                 </Link>
               </li>
             </ul>

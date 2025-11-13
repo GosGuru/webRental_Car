@@ -4,9 +4,9 @@ import Link from "next/link"
 import { 
   LayoutDashboard, 
   Car, 
-  FolderOpen, 
+  // FolderOpen, 
   MessageSquare, 
-  Settings,
+  // Settings,
   LogOut,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -45,15 +45,15 @@ export default async function AdminLayout({
             <NavLink href="/admin/vehicles" icon={Car}>
               Vehículos
             </NavLink>
-            <NavLink href="/admin/categories" icon={FolderOpen}>
+            {/* <NavLink href="/admin/categories" icon={FolderOpen}>
               Categorías
-            </NavLink>
+            </NavLink> */}
             <NavLink href="/admin/inquiries" icon={MessageSquare}>
               Consultas
             </NavLink>
-            <NavLink href="/admin/settings" icon={Settings}>
+            {/* <NavLink href="/admin/settings" icon={Settings}>
               Configuración
-            </NavLink>
+            </NavLink> */}
           </nav>
 
           {/* User info & logout */}
