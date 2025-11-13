@@ -74,5 +74,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session
     },
+    async redirect({ url, baseUrl }) {
+      // Si la URL es relativa, úsala directamente
+      if (url.startsWith("/")) {
+        // Si el usuario se está logueando, redirigir al admin
+        if (url === "/" || url === baseUrl) {
+          return `${baseUrl}/admin`
+        }
+        return url
+      }
+      // Si la URL es la misma que baseUrl, redirigir al admin
+      if (url === baseUrl) {
+        return `${baseUrl}/admin`
+      }
+      // Si la URL es del mismo origen, permitirla
+      if (url.startsWith(baseUrl)) {
+        return url
+      }
+      // Por defecto, redirigir al admin
+      return `${baseUrl}/admin`
+    },
   },
 })

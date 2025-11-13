@@ -28,6 +28,7 @@ export default function LoginPage() {
         email,
         password,
         redirect: false,
+        callbackUrl: "/admin",
       })
 
       if (result?.error) {
@@ -36,8 +37,8 @@ export default function LoginPage() {
         return
       }
 
-      router.push("/admin")
-      router.refresh()
+      // Redirigir al admin después de login exitoso
+      window.location.href = "/admin"
     } catch (error) {
       setError("Error al iniciar sesión")
       setIsLoading(false)
