@@ -11,8 +11,8 @@ import { VehicleGridSkeleton } from "@/components/vehicles/VehicleCardSkeleton"
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/AnimatedSections"
 
 export const metadata: Metadata = {
-  title: "Inicio - Venta de Coches de Segunda Mano en Cabra, Córdoba",
-  description: "Bienvenido a Autos Bustamante, tu concesionario de confianza en Cabra, Córdoba. Venta de coches de segunda mano con garantía y las mejores ofertas.",
+  title: "Inicio - Venta de Coches de Segunda Mano en Cantabria, Santander",
+  description: "Bienvenido a Autos Bustamante, concesionario de confianza en Cantabria, Santander. Venta de coches de segunda mano con garantía y las mejores ofertas.",
 }
 
 async function getFeaturedVehicles() {
@@ -111,8 +111,8 @@ export default async function HomePage() {
           <div className="max-w-3xl" suppressHydrationWarning>
             <FadeInUp>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-                Tu concesionario de confianza en{" "}
-                <span className="text-primary">Cabra, Córdoba</span>
+                Concesionario de confianza en{" "}
+                <span className="text-primary">Cantabria, Santander</span>
               </h1>
             </FadeInUp>
             <FadeInUp delay={0.1}>
@@ -125,7 +125,7 @@ export default async function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4" suppressHydrationWarning>
                 <Button size="lg" asChild>
                   <Link href="/vehiculos">
-                    Ver Catálogo
+                    Quiero ver autos Bustamante
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>

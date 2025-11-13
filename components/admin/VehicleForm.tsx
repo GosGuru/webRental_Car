@@ -160,10 +160,10 @@ export function VehicleForm({
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <FormField
                   control={form.control}
-                  name="year"
+                  name="bodyType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Año</FormLabel>
@@ -224,7 +224,7 @@ export function VehicleForm({
               <CardTitle>Especificaciones Técnicas</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="fuelType"
@@ -274,7 +274,7 @@ export function VehicleForm({
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <FormField
                   control={form.control}
                   name="bodyType"
@@ -341,7 +341,7 @@ export function VehicleForm({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="engineSize"
@@ -372,7 +372,7 @@ export function VehicleForm({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="exteriorColor"
@@ -515,11 +515,11 @@ export function VehicleForm({
             </CardContent>
           </Card>
 
-          <div className="flex justify-end gap-4">
-            <Button type="button" variant="outline" asChild>
+          <div className="flex flex-col-reverse sm:flex-row justify-end gap-3">
+            <Button type="button" variant="outline" className="w-full sm:w-auto min-h-11 touch-manipulation" asChild>
               <Link href="/admin/vehicles">Cancelar</Link>
             </Button>
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading} className="w-full sm:w-auto min-h-11 touch-manipulation">
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

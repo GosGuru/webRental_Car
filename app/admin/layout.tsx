@@ -8,9 +8,10 @@ import {
   MessageSquare, 
   Settings,
   LogOut,
-  Menu
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { MobileNav } from "@/components/admin/MobileNav"
+import { MobileMenu } from "@/components/admin/MobileMenu"
 
 export default async function AdminLayout({
   children,
@@ -25,8 +26,8 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-muted/20" suppressHydrationWarning>
-      {/* Sidebar */}
-      <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-card shadow-sm">
+      {/* Desktop Sidebar - Hidden on mobile */}
+      <aside className="hidden lg:fixed lg:left-0 lg:top-0 lg:z-40 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:border-r lg:bg-card lg:shadow-sm">
         <div className="flex h-full flex-col" suppressHydrationWarning>
           {/* Logo */}
           <div className="flex h-16 items-center border-b px-6 bg-primary/5" suppressHydrationWarning>
@@ -72,14 +73,12 @@ export default async function AdminLayout({
       </aside>
 
       {/* Main content */}
-      <div className="pl-64">
+      <div className="lg:pl-64 pb-16 lg:pb-0">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-card px-6 shadow-sm">
-          <Button variant="ghost" size="icon" className="lg:hidden">
-            <Menu className="h-5 w-5" />
-          </Button>
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-card px-4 lg:px-6 shadow-sm">
+          <MobileMenu userName={session.user.name} userEmail={session.user.email} />
           <div className="flex-1">
-            <h1 className="text-xl font-semibold">Panel de Administración</h1>
+            <h1 className="text-lg lg:text-xl font-semibold">Panel de Administración</h1>
           </div>
           <Button asChild variant="outline" size="sm">
             <Link href="/" target="_blank">
@@ -89,8 +88,11 @@ export default async function AdminLayout({
         </header>
 
         {/* Page content */}
-        <main className="p-6 animate-in fade-in duration-300">{children}</main>
+        <main className="p-4 lg:p-6 animate-in fade-in duration-300">{children}</main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <MobileNav />
     </div>
   )
 }

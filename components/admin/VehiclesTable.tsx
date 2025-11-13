@@ -30,6 +30,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { VehicleCard } from "./VehicleCard"
 
 type Vehicle = {
   id: string
@@ -110,11 +111,32 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
           placeholder="Buscar por marca, modelo o año..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="max-w-sm border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
 
-      <div className="rounded-lg border bg-card overflow-hidden shadow-sm">
+      {/* Vista móvil - Grid de cards */}
+      <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {filteredVehicles.length === 0 ? (
+          <div className="col-span-full flex flex-col items-center gap-3 py-12 text-muted-foreground">
+            <Car className="h-12 w-12" />
+            <p className="text-sm">No se encontraron vehículos</p>
+          </div>
+        ) : (
+          filteredVehicles.map((vehicle) => (
+            <VehicleCard
+              key={vehicle.id}
+              vehicle={vehicle}
+              onDelete={handleDelete}
+              formatPrice={formatPrice}
+              formatMileage={formatMileage}
+            />
+          ))
+        )}
+      </div>
+
+      {/* Vista desktop - Tabla */}
+      <div className="hidden lg:block rounded-lg border bg-card overflow-hidden shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>

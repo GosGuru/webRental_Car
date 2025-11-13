@@ -23,14 +23,14 @@ export default async function VehiclesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">Vehículos</h2>
-          <p className="text-muted-foreground mt-1">
+          <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-foreground">Vehículos</h2>
+          <p className="text-sm lg:text-base text-muted-foreground mt-1">
             Gestiona el inventario de vehículos
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className="w-full sm:w-auto min-h-11 touch-manipulation">
           <Link href="/admin/vehicles/new">
             <Plus className="mr-2 h-4 w-4" />
             Nuevo Vehículo
@@ -40,7 +40,7 @@ export default async function VehiclesPage() {
 
       <Card className="shadow-sm">
         <CardHeader className="bg-muted/30">
-          <CardTitle className="text-xl">Listado de Vehículos ({vehicles.length})</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">Listado de Vehículos ({vehicles.length})</CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
           <VehiclesTable vehicles={vehicles} />

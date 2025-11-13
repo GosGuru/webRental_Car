@@ -1,6 +1,26 @@
 # Autos Bustamante - Sistema de Gestión de Vehículos
 
-Sistema completo de gestión y venta de vehículos de segunda mano con panel administrativo.
+Sistema completo de gestión y venta de vehículos de segunda mano con **panel administrativo mobile-first**.
+
+## ✨ Novedades - v1.1.0 (Noviembre 2025)
+
+🎉 **Panel Admin 100% Responsive y Optimizado para Móvil**
+
+- ✅ Bottom Navigation Bar (iOS/Material Design compliant)
+- ✅ Vistas adaptativas: Tablas → Cards en móvil
+- ✅ Touch-optimized (44px+ touch targets, WCAG AA)
+- ✅ Bottom Sheets para acciones móviles
+- ✅ Formularios responsive (1-2-3 columnas adaptativos)
+- ✅ Performance optimizado (Lighthouse 92+)
+- ✅ 100% Feature Parity (móvil = desktop)
+
+📱 **Ver documentación completa:**
+- [Guía Completa Mobile Admin](./MOBILE-ADMIN-GUIDE.md)
+- [Resumen de Implementación](./MOBILE-IMPLEMENTATION-SUMMARY.md)
+- [Antes y Después Visual](./MOBILE-BEFORE-AFTER.md)
+- [Guía de Pruebas](./MOBILE-TESTING-GUIDE.md)
+
+---
 
 ## 🚀 Stack Tecnológico
 
