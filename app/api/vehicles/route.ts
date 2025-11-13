@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z, ZodError } from "zod"
 import prisma from "@/lib/prisma"
-import { Prisma, VehicleStatus, FuelType, Transmission, BodyType } from "@prisma/client"
+import { Prisma } from "@prisma/client"
 
 // Schema de validación para crear/actualizar vehículos
 const vehicleSchema = z.object({
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (status) {
-      where.status = status as VehicleStatus
+      where.status = status as any
     }
 
     if (brand) where.brand = { contains: brand, mode: "insensitive" }
@@ -76,9 +76,9 @@ export async function GET(request: NextRequest) {
       if (minYear) where.year.gte = parseInt(minYear)
       if (maxYear) where.year.lte = parseInt(maxYear)
     }
-    if (fuelType) where.fuelType = fuelType as FuelType
-    if (transmission) where.transmission = transmission as Transmission
-    if (bodyType) where.bodyType = bodyType as BodyType
+    if (fuelType) where.fuelType = fuelType as any
+    if (transmission) where.transmission = transmission as any
+    if (bodyType) where.bodyType = bodyType as any
     if (categoryId) where.categoryId = categoryId
     if (featured === "true") where.isFeatured = true
     
