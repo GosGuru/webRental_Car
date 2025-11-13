@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { 
@@ -59,8 +59,28 @@ const statusLabels = {
   PENDING: "Pendiente",
 }
 
+// Función de formateo consistente para evitar errores de hidratación
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("es-ES", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(price)
+}
+
+const formatMileage = (mileage: number | null) => {
+  if (!mileage) return "-"
+  return new Intl.NumberFormat("es-ES").format(mileage) + " km"
+}
+
 export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
   const [search, setSearch] = useState("")
+  const [mounted, setMounted] = useState(false)
+
+  // Evitar errores de hidratación esperando a que el componente se monte
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const filteredVehicles = vehicles.filter((vehicle) => {
     const searchLower = search.toLowerCase()
@@ -157,10 +177,10 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
                   </TableCell>
                   <TableCell>{vehicle.year}</TableCell>
                   <TableCell className="font-medium">
-                    €{vehicle.price.toLocaleString()}
+                    {mounted ? formatPrice(vehicle.price) : `€${vehicle.price}`}
                   </TableCell>
                   <TableCell>
-                    {vehicle.mileage ? `${vehicle.mileage.toLocaleString()} km` : "-"}
+                    {mounted ? formatMileage(vehicle.mileage) : (vehicle.mileage || "-")}
                   </TableCell>
                   <TableCell>
                     <Badge

@@ -163,7 +163,7 @@ export async function POST(request: NextRequest) {
         images: imageUrls && imageUrls.length > 0 ? {
           create: imageUrls.map((url, index) => ({
             url,
-            altText: `${validatedData.brand} ${validatedData.model} - Imagen ${index + 1}`,
+            alt: `${validatedData.brand} ${validatedData.model} - Imagen ${index + 1}`,
             order: index,
           })),
         } : undefined,

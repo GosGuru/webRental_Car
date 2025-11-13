@@ -136,7 +136,7 @@ export async function PUT(
             deleteMany: {}, // Eliminar todas las imágenes existentes
             create: imageUrls.map((url, index) => ({
               url,
-              altText: `${existingVehicle.brand} ${existingVehicle.model} - Imagen ${index + 1}`,
+              alt: `${existingVehicle.brand} ${existingVehicle.model} - Imagen ${index + 1}`,
               order: index,
             })),
           },

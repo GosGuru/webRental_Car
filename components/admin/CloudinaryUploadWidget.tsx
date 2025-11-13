@@ -1,8 +1,8 @@
 "use client"
 
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Upload, X } from "lucide-react"
+import { Upload, X, Loader2 } from "lucide-react"
 import Image from "next/image"
 
 interface CloudinaryUploadWidgetProps {
@@ -18,6 +18,45 @@ export default function CloudinaryUploadWidget({
   onRemove,
   maxFiles = 10,
 }: CloudinaryUploadWidgetProps) {
+  const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+
+    setUploading(true)
+    setError(null)
+
+    try {
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const formData = new FormData()
+        formData.append("file", file)
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.error || "Error al subir imagen")
+        }
+
+        const data = await response.json()
+        return data.url
+      })
+
+      const urls = await Promise.all(uploadPromises)
+      onUpload([...currentImages, ...urls])
+    } catch (err) {
+      console.error("Upload error:", err)
+      setError(err instanceof Error ? err.message : "Error al subir imágenes")
+    } finally {
+      setUploading(false)
+    }
+  }
+
   return (
     <div className="space-y-4">
       {/* Preview de imágenes actuales */}
@@ -47,37 +86,43 @@ export default function CloudinaryUploadWidget({
         </div>
       )}
 
-      {/* Widget de subida */}
+      {/* Botón de subida */}
       {currentImages.length < maxFiles && (
-        <CldUploadWidget
-          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-          onSuccess={(result: CloudinaryUploadWidgetResults) => {
-            if (result.event === "success" && result.info && typeof result.info !== "string") {
-              const newUrl = result.info.secure_url
-              onUpload([...currentImages, newUrl])
-            }
-          }}
-          options={{
-            multiple: true,
-            maxFiles: maxFiles - currentImages.length,
-            resourceType: "image",
-            clientAllowedFormats: ["jpg", "jpeg", "png", "webp"],
-            maxFileSize: 5000000, // 5MB
-            folder: "autosbustamante",
-          }}
-        >
-          {({ open }) => (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => open()}
-              className="w-full"
-            >
-              <Upload className="h-4 w-4 mr-2" />
-              Subir imágenes ({currentImages.length}/{maxFiles})
-            </Button>
-          )}
-        </CldUploadWidget>
+        <div>
+          <input
+            type="file"
+            id="image-upload"
+            multiple
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleFileUpload}
+            disabled={uploading}
+            className="hidden"
+            max={maxFiles - currentImages.length}
+          />
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => document.getElementById("image-upload")?.click()}
+            disabled={uploading}
+            className="w-full"
+          >
+            {uploading ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Subiendo...
+              </>
+            ) : (
+              <>
+                <Upload className="h-4 w-4 mr-2" />
+                Subir imágenes ({currentImages.length}/{maxFiles})
+              </>
+            )}
+          </Button>
+        </div>
+      )}
+
+      {error && (
+        <p className="text-sm text-red-500">{error}</p>
       )}
 
       <p className="text-sm text-muted-foreground">
