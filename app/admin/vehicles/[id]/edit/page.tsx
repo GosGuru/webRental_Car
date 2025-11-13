@@ -19,7 +19,17 @@ async function getVehicle(id: string) {
   // Transformar para el formulario
   return {
     ...vehicle,
-    images: vehicle.images.map(img => img.url),
+    images: vehicle.images.map((img: any) => img.url),
+    mileage: vehicle.mileage ?? undefined,
+    fuelType: vehicle.fuelType ?? undefined,
+    transmission: vehicle.transmission ?? undefined,
+    bodyType: vehicle.bodyType ?? undefined,
+    engineSize: vehicle.engineSize ?? undefined,
+    enginePower: vehicle.enginePower ?? undefined,
+    doors: vehicle.doors ?? undefined,
+    seats: vehicle.seats ?? undefined,
+    exteriorColor: vehicle.exteriorColor ?? undefined,
+    interiorColor: vehicle.interiorColor ?? undefined,
   }
 }
 

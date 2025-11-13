@@ -476,7 +476,7 @@ export default async function VehicleDetailPage({
                 },
               },
             },
-            image: vehicle.images.map(img => img.url),
+            image: vehicle.images.map((img: any) => img.url),
             url: `https://autosbustamante.com/vehiculos/${vehicle.slug}`,
           }),
         }}

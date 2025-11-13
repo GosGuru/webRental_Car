@@ -14,8 +14,8 @@ interface VehicleCardProps {
     year: number
     price: number
     mileage: number | null
-    fuelType: string
-    transmission: string
+    fuelType: string | null
+    transmission: string | null
     isFeatured: boolean
     images: Array<{
       url: string
@@ -37,7 +37,8 @@ const formatMileage = (mileage: number | null) => {
   return new Intl.NumberFormat("es-ES").format(mileage) + " km"
 }
 
-const getFuelTypeLabel = (type: string) => {
+const getFuelTypeLabel = (type: string | null) => {
+  if (!type) return "N/A"
   const labels: Record<string, string> = {
     GASOLINE: "Gasolina",
     DIESEL: "Diésel",
@@ -48,7 +49,8 @@ const getFuelTypeLabel = (type: string) => {
   return labels[type] || type
 }
 
-const getTransmissionLabel = (type: string) => {
+const getTransmissionLabel = (type: string | null) => {
+  if (!type) return "N/A"
   const labels: Record<string, string> = {
     MANUAL: "Manual",
     AUTOMATIC: "Automático",
