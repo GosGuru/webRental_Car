@@ -11,7 +11,6 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { es } from "date-fns/locale"
-import type { InquiryStatus } from "@prisma/client"
 
 async function getInquiries() {
   return prisma.inquiry.findMany({
@@ -27,14 +26,14 @@ async function getInquiries() {
   })
 }
 
-const statusColors: Record<InquiryStatus, string> = {
+const statusColors: Record<string, string> = {
   PENDING: "bg-yellow-500",
   CONTACTED: "bg-blue-500",
   RESOLVED: "bg-green-500",
   SPAM: "bg-red-500",
 }
 
-const statusLabels: Record<InquiryStatus, string> = {
+const statusLabels: Record<string, string> = {
   PENDING: "Pendiente",
   CONTACTED: "Contactado",
   RESOLVED: "Resuelto",
