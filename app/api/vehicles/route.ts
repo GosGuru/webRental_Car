@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
     const featured = searchParams.get("featured")
 
     // Construir filtros dinámicos
-    const where: Prisma.VehicleWhereInput = {
+    const where: any = {
       isVisible: true,
     }
 
