@@ -24,14 +24,14 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-muted/20" suppressHydrationWarning>
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-card">
-        <div className="flex h-full flex-col">
+      <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-card shadow-sm">
+        <div className="flex h-full flex-col" suppressHydrationWarning>
           {/* Logo */}
-          <div className="flex h-16 items-center border-b px-6">
-            <Link href="/admin" className="flex items-center gap-2">
-              <Car className="h-6 w-6" />
+          <div className="flex h-16 items-center border-b px-6 bg-primary/5" suppressHydrationWarning>
+            <Link href="/admin" className="flex items-center gap-2 group">
+              <Car className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
               <span className="font-bold text-lg">Admin Panel</span>
             </Link>
           </div>
@@ -74,7 +74,7 @@ export default async function AdminLayout({
       {/* Main content */}
       <div className="pl-64">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-card px-6 shadow-sm">
           <Button variant="ghost" size="icon" className="lg:hidden">
             <Menu className="h-5 w-5" />
           </Button>
@@ -89,7 +89,7 @@ export default async function AdminLayout({
         </header>
 
         {/* Page content */}
-        <main className="p-6">{children}</main>
+        <main className="p-6 animate-in fade-in duration-300">{children}</main>
       </div>
     </div>
   )
@@ -107,9 +107,9 @@ function NavLink({
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 group"
     >
-      <Icon className="h-4 w-4" />
+      <Icon className="h-4 w-4 group-hover:scale-110 transition-transform" />
       {children}
     </Link>
   )

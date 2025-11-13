@@ -25,8 +25,8 @@ export default async function VehiclesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Vehículos</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">Vehículos</h2>
+          <p className="text-muted-foreground mt-1">
             Gestiona el inventario de vehículos
           </p>
         </div>
@@ -38,11 +38,11 @@ export default async function VehiclesPage() {
         </Button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Listado de Vehículos ({vehicles.length})</CardTitle>
+      <Card className="shadow-sm">
+        <CardHeader className="bg-muted/30">
+          <CardTitle className="text-xl">Listado de Vehículos ({vehicles.length})</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <VehiclesTable vehicles={vehicles} />
         </CardContent>
       </Card>

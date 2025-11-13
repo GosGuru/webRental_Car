@@ -22,6 +22,7 @@ interface VehicleCardProps {
       alt: string | null
     }>
   }
+  priority?: boolean
 }
 
 const formatPrice = (price: number) => {
@@ -59,12 +60,12 @@ const getTransmissionLabel = (type: string | null) => {
   return labels[type] || type
 }
 
-export function VehicleCard({ vehicle }: VehicleCardProps) {
-  const mainImage = vehicle.images[0]?.url || "https://placehold.co/800x600/e5e7eb/6b7280?text=Sin+Imagen"
+export function VehicleCard({ vehicle, priority = false }: VehicleCardProps) {
+  const mainImage = vehicle.images[0]?.url || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%23e5e7eb' width='800' height='600'/%3E%3Ctext fill='%236b7280' font-family='sans-serif' font-size='32' dy='10.5' font-weight='bold' x='50%25' y='50%25' text-anchor='middle'%3ESin Imagen%3C/text%3E%3C/svg%3E"
   const imageAlt = vehicle.images[0]?.alt || `${vehicle.brand} ${vehicle.model}`
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <CardHeader className="p-0 relative">
         {vehicle.isFeatured && (
           <Badge className="absolute top-4 right-4 z-10" variant="destructive">
@@ -72,15 +73,16 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
           </Badge>
         )}
         <Link href={`/vehiculos/${vehicle.slug}`}>
-          <div className="relative w-full h-64 bg-neutral-100">
+          <div className="relative w-full h-64 bg-neutral-100 overflow-hidden">
             <Image
               src={mainImage}
               alt={imageAlt}
               fill
-              className="object-cover hover:scale-105 transition-transform duration-300"
+              className="object-cover transition-transform duration-500 ease-out hover:scale-110"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"
-              quality={75}
+              loading={priority ? "eager" : "lazy"}
+              priority={priority}
+              quality={85}
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
             />

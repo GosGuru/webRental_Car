@@ -1,37 +1,199 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Autos Bustamante - Sistema de Gestión de Vehículos
 
-## Getting Started
+Sistema completo de gestión y venta de vehículos de segunda mano con panel administrativo.
 
-First, run the development server:
+## 🚀 Stack Tecnológico
 
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Base de Datos**: PostgreSQL (Neon)
+- **ORM**: Prisma
+- **Autenticación**: NextAuth v5
+- **Estilos**: Tailwind CSS + shadcn/ui
+- **Imágenes**: Cloudinary
+- **Deployment**: Vercel
+
+---
+
+## 📦 Instalación Local
+
+### 1. Clonar el repositorio
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/GosGuru/webRental_Car.git
+cd webRental_Car
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalar dependencias
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configurar variables de entorno
+Crea un archivo `.env` en la raíz:
+```env
+# Base de datos
+DATABASE_URL="postgresql://..."
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# NextAuth
+AUTH_SECRET="tu-secret-aleatorio"
+NEXTAUTH_URL="http://localhost:3000"
 
-## Learn More
+# Cloudinary
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="tu-cloud-name"
+CLOUDINARY_API_KEY="tu-api-key"
+CLOUDINARY_API_SECRET="tu-api-secret"
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Configurar base de datos
+```bash
+npm run db:generate  # Generar Prisma Client
+npm run db:push      # Crear tablas
+npm run db:seed      # Datos de ejemplo (opcional)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Crear usuario admin
+```bash
+npm run db:setup-admin
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 6. Iniciar servidor
+```bash
+npm run dev
+```
 
-## Deploy on Vercel
+Abre [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# webRental_Car
+## 🌐 Deploy en Vercel
+
+### Configuración Requerida
+
+#### 1. Generar AUTH_SECRET
+```bash
+# En PowerShell:
+.\generate-auth-secret.ps1
+
+# O manualmente:
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
+
+#### 2. Configurar Variables en Vercel
+Ve a **Settings** → **Environment Variables** y agrega:
+
+| Variable | Descripción |
+|----------|-------------|
+| `DATABASE_URL` | Connection string de Neon |
+| `AUTH_SECRET` | Secret generado (NO uses el de desarrollo) |
+| `NEXTAUTH_URL` | `https://tu-dominio.vercel.app` |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Tu cloud name |
+| `CLOUDINARY_API_KEY` | Tu API key |
+| `CLOUDINARY_API_SECRET` | Tu API secret |
+
+**📖 Guía detallada**: Ver [VERCEL-CONFIG.md](./VERCEL-CONFIG.md)
+
+#### 3. Deploy
+```bash
+git push origin main
+```
+
+Vercel desplegará automáticamente.
+
+---
+
+## 🎯 Características
+
+### Panel Público
+- ✅ Catálogo de vehículos con filtros avanzados
+- ✅ Vista detallada de cada vehículo
+- ✅ Formulario de contacto
+- ✅ SEO optimizado
+- ✅ Responsive design
+
+### Panel Administrativo
+- ✅ Gestión completa de vehículos (CRUD)
+- ✅ Upload de imágenes a Cloudinary
+- ✅ Sistema de categorías
+- ✅ Gestión de consultas
+- ✅ Múltiples filtros y búsqueda
+
+---
+
+## 📝 Scripts Disponibles
+
+```bash
+npm run dev          # Servidor de desarrollo
+npm run build        # Build de producción
+npm run start        # Servidor de producción
+npm run lint         # Linter
+npm run type-check   # Verificar tipos
+
+# Base de datos
+npm run db:generate     # Generar Prisma Client
+npm run db:migrate      # Crear migración
+npm run db:push         # Push schema
+npm run db:studio       # Abrir Prisma Studio
+npm run db:seed         # Datos de ejemplo
+npm run db:setup-admin  # Crear usuario admin
+```
+
+---
+
+## 🔐 Acceso Admin
+
+### Local
+- URL: `http://localhost:3000/admin`
+- Credenciales: Las que configuraste con `npm run db:setup-admin`
+
+### Producción
+1. Crear usuario admin en la base de datos de producción
+2. Ir a `https://tu-dominio.vercel.app/admin`
+3. Login con credenciales
+
+---
+
+## 🐛 Solución de Problemas
+
+### "Redirecciona al home en /admin"
+**Causa**: No autenticado o AUTH_SECRET incorrecto  
+**Solución**: Ver [VERCEL-CONFIG.md](./VERCEL-CONFIG.md)
+
+### "Error de Prisma Client"
+**Causa**: Prisma Client no generado  
+**Solución**: `npm run db:generate`
+
+### Errores de hidratación
+**Causa**: Extensiones del navegador  
+**Solución**: Ver [ERRORES-COMUNES.md](./ERRORES-COMUNES.md)
+
+---
+
+## 📚 Documentación Adicional
+
+- [Configuración de Vercel](./VERCEL-CONFIG.md)
+- [Errores Comunes](./ERRORES-COMUNES.md)
+- [Configuración de Cloudinary](./CLOUDINARY_SETUP.md)
+
+---
+
+## 👥 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/nueva-caracteristica`)
+3. Commit cambios (`git commit -m 'Agregar característica'`)
+4. Push a la rama (`git push origin feature/nueva-caracteristica`)
+5. Abre un Pull Request
+
+---
+
+## 📄 Licencia
+
+Este proyecto es privado.
+
+---
+
+## 💼 Contacto
+
+**Autos Bustamante**  
+📧 autosbustamante@hotmail.com  
+📞 675 689 111  
+📍 Camino de Alcolea, 27 - 14940 Cabra, Córdoba

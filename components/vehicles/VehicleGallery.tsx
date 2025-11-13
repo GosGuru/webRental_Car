@@ -46,7 +46,7 @@ export function VehicleGallery({
           src={images[currentIndex].url}
           alt={images[currentIndex].alt || vehicleTitle}
           fill
-          className="object-cover"
+          className="object-cover transition-opacity duration-300"
           priority={currentIndex === 0}
           loading={currentIndex === 0 ? "eager" : "lazy"}
           quality={85}
@@ -59,7 +59,7 @@ export function VehicleGallery({
             <Button
               variant="secondary"
               size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute left-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300"
               onClick={goToPrevious}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -67,7 +67,7 @@ export function VehicleGallery({
             <Button
               variant="secondary"
               size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300"
               onClick={goToNext}
             >
               <ChevronRight className="h-6 w-6" />

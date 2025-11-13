@@ -46,67 +46,75 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Dashboard</h2>
+        <p className="text-muted-foreground mt-1">
           Resumen general de tu concesionario
         </p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="shadow-sm hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-sm font-semibold">
               Total Vehículos
             </CardTitle>
-            <Car className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <Car className="h-4 w-4 text-primary" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalVehicles}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-foreground">{stats.totalVehicles}</div>
+            <p className="text-xs text-muted-foreground mt-1">
               En inventario total
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-sm hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Disponibles</CardTitle>
-            <Eye className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-semibold">Disponibles</CardTitle>
+            <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
+              <Eye className="h-4 w-4 text-green-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.availableVehicles}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-foreground">{stats.availableVehicles}</div>
+            <p className="text-xs text-muted-foreground mt-1">
               Listos para venta
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-sm hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Vendidos</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-semibold">Vendidos</CardTitle>
+            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <TrendingUp className="h-4 w-4 text-blue-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.soldVehicles}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-foreground">{stats.soldVehicles}</div>
+            <p className="text-xs text-muted-foreground mt-1">
               Total de ventas
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-sm hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-sm font-semibold">
               Valor Inventario
             </CardTitle>
-            <Euro className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-amber-100 flex items-center justify-center">
+              <Euro className="h-4 w-4 text-amber-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-foreground">
               €{stats.totalValue.toLocaleString()}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground mt-1">
               Vehículos disponibles
             </p>
           </CardContent>
@@ -114,11 +122,11 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Recent Vehicles */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Vehículos Recientes</CardTitle>
+      <Card className="shadow-sm">
+        <CardHeader className="bg-muted/30">
+          <CardTitle className="text-xl">Vehículos Recientes</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <div className="space-y-4">
             {recentVehicles.map((vehicle: any) => (
               <div
@@ -126,29 +134,31 @@ export default async function AdminDashboard() {
                 className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0"
               >
                 <div className="flex items-center gap-4">
-                  {vehicle.images[0] ? (
-                    <img
-                      src={vehicle.images[0].url}
-                      alt={vehicle.brand}
-                      className="h-16 w-16 rounded object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-16 w-16 items-center justify-center rounded bg-muted">
-                      <Car className="h-8 w-8 text-muted-foreground" />
-                    </div>
-                  )}
+                  <div className="relative h-16 w-20 overflow-hidden rounded-lg bg-muted flex-shrink-0">
+                    {vehicle.images[0] ? (
+                      <img
+                        src={vehicle.images[0].url}
+                        alt={vehicle.brand}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <Car className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
                   <div>
-                    <p className="font-medium">
+                    <p className="font-semibold text-foreground">
                       {vehicle.brand} {vehicle.model}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mt-0.5">
                       {vehicle.year} • {vehicle.status}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold">€{vehicle.price.toLocaleString()}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="font-bold text-foreground">€{vehicle.price.toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
                     {vehicle.mileage?.toLocaleString()} km
                   </p>
                 </div>

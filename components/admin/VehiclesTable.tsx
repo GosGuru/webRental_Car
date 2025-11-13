@@ -45,18 +45,11 @@ type Vehicle = {
   images: { url: string }[]
 }
 
-const statusColors = {
-  AVAILABLE: "bg-green-500",
-  RESERVED: "bg-yellow-500",
-  SOLD: "bg-red-500",
-  PENDING: "bg-blue-500",
-}
-
-const statusLabels = {
-  AVAILABLE: "Disponible",
-  RESERVED: "Reservado",
-  SOLD: "Vendido",
-  PENDING: "Pendiente",
+const statusConfig = {
+  AVAILABLE: { label: "Disponible", variant: "success" as const },
+  RESERVED: { label: "Reservado", variant: "warning" as const },
+  SOLD: { label: "Vendido", variant: "destructive" as const },
+  PENDING: { label: "Pendiente", variant: "info" as const },
 }
 
 // Función de formateo consistente para evitar errores de hidratación
@@ -111,17 +104,17 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 bg-muted/30 p-3 rounded-lg">
         <Search className="h-4 w-4 text-muted-foreground" />
         <Input
           placeholder="Buscar por marca, modelo o año..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="max-w-sm"
+          className="max-w-sm border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-lg border bg-card overflow-hidden shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>
@@ -149,49 +142,52 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
               filteredVehicles.map((vehicle: any) => (
                 <TableRow key={vehicle.id}>
                   <TableCell>
-                    {vehicle.images[0] ? (
-                      <Image
-                        src={vehicle.images[0].url}
-                        alt={`${vehicle.brand} ${vehicle.model}`}
-                        width={60}
-                        height={60}
-                        className="rounded object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-[60px] w-[60px] items-center justify-center rounded bg-muted">
-                        <Car className="h-6 w-6 text-muted-foreground" />
-                      </div>
-                    )}
+                    <div className="relative h-14 w-20 overflow-hidden rounded-md bg-muted">
+                      {vehicle.images[0] ? (
+                        <Image
+                          src={vehicle.images[0].url}
+                          alt={`${vehicle.brand} ${vehicle.model}`}
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                          <Car className="h-6 w-6 text-muted-foreground" />
+                        </div>
+                      )}
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <div>
-                      <p className="font-medium">
+                    <div className="min-w-[180px]">
+                      <p className="font-semibold text-foreground">
                         {vehicle.brand} {vehicle.model}
                       </p>
                       {vehicle.isFeatured && (
-                        <Badge variant="secondary" className="mt-1">
-                          Destacado
+                        <Badge variant="warning" className="mt-1.5">
+                          ⭐ Destacado
                         </Badge>
                       )}
                     </div>
                   </TableCell>
                   <TableCell>{vehicle.year}</TableCell>
-                  <TableCell className="font-medium">
-                    {mounted ? formatPrice(vehicle.price) : `€${vehicle.price}`}
+                  <TableCell>
+                    <span className="font-semibold text-foreground">
+                      {mounted ? formatPrice(vehicle.price) : `€${vehicle.price}`}
+                    </span>
                   </TableCell>
                   <TableCell>
                     {mounted ? formatMileage(vehicle.mileage) : (vehicle.mileage || "-")}
                   </TableCell>
                   <TableCell>
                     <Badge
-                      variant="secondary"
-                      className={statusColors[vehicle.status as keyof typeof statusColors]}
+                      variant={statusConfig[vehicle.status as keyof typeof statusConfig]?.variant || "secondary"}
                     >
-                      {statusLabels[vehicle.status as keyof typeof statusLabels]}
+                      {statusConfig[vehicle.status as keyof typeof statusConfig]?.label || vehicle.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={vehicle.isVisible ? "default" : "outline"}>
+                    <Badge variant={vehicle.isVisible ? "success" : "outline"}>
                       {vehicle.isVisible ? "Visible" : "Oculto"}
                     </Badge>
                   </TableCell>
