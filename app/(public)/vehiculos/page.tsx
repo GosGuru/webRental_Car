@@ -6,7 +6,6 @@ import { VehicleGridSkeleton } from "@/components/vehicles/VehicleCardSkeleton"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
-import type { Vehicle } from "@/types/api"
 
 export const metadata: Metadata = {
   title: "Catálogo de Vehículos - Coches de Segunda Mano",
@@ -187,7 +186,7 @@ async function VehicleGrid({ params }: { params: SearchParams }) {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {vehicles.map((vehicle: Vehicle) => (
+        {vehicles.map((vehicle) => (
           <VehicleCard key={vehicle.id} vehicle={vehicle} />
         ))}
       </div>

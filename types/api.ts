@@ -20,16 +20,18 @@ export interface Vehicle {
   model: string
   year: number
   price: number
+  priceNegotiable: boolean
   mileage: number | null
-  fuelType: string
-  transmission: string
-  bodyType: string
-  color: string | null
+  fuelType: string | null
+  transmission: string | null
+  bodyType: string | null
+  exteriorColor: string | null
+  interiorColor: string | null
   doors: number | null
   seats: number | null
-  engineSize: number | null
-  horsePower: number | null
-  description: string | null
+  engineSize: string | null
+  enginePower: string | null
+  description: string
   features: string[]
   isFeatured: boolean
   isVisible: boolean
