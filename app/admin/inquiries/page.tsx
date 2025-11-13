@@ -76,7 +76,7 @@ export default async function InquiriesPage() {
                   </TableCell>
                 </TableRow>
               ) : (
-                inquiries.map((inquiry) => (
+                inquiries.map((inquiry: any) => (
                   <TableRow key={inquiry.id}>
                     <TableCell className="font-medium">{inquiry.name}</TableCell>
                     <TableCell>
