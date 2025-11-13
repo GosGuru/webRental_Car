@@ -17,7 +17,7 @@ export function FadeInUp({ children, delay = 0 }: AnimatedSectionProps) {
       transition={{
         duration: 0.5,
         delay,
-        ease: [0.25, 0.4, 0.25, 1],
+        ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
       }}
     >
       {children}
@@ -51,7 +51,7 @@ export function ScaleIn({ children, delay = 0 }: AnimatedSectionProps) {
       transition={{
         duration: 0.4,
         delay,
-        ease: [0.25, 0.4, 0.25, 1],
+        ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
       }}
     >
       {children}
@@ -68,7 +68,7 @@ export function SlideInLeft({ children, delay = 0 }: AnimatedSectionProps) {
       transition={{
         duration: 0.5,
         delay,
-        ease: [0.25, 0.4, 0.25, 1],
+        ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
       }}
     >
       {children}
@@ -105,7 +105,7 @@ export function StaggerItem({ children }: { children: ReactNode }) {
           y: 0,
           transition: {
             duration: 0.5,
-            ease: [0.25, 0.4, 0.25, 1],
+            ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
           },
         },
       }}
