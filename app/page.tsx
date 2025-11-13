@@ -66,7 +66,7 @@ async function FeaturedVehicles() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" suppressHydrationWarning>
-          {vehicles.map((vehicle) => (
+          {vehicles.map((vehicle: any) => (
             <VehicleCard key={vehicle.id} vehicle={vehicle} />
           ))}
         </div>
