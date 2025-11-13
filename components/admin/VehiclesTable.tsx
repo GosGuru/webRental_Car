@@ -105,7 +105,7 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[80px]">Imagen</TableHead>
+              <TableHead className="w-20">Imagen</TableHead>
               <TableHead>Vehículo</TableHead>
               <TableHead>Año</TableHead>
               <TableHead>Precio</TableHead>

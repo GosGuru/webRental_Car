@@ -310,7 +310,7 @@ export default async function VehicleDetailPage({
                     <div>
                       <h3 className="text-lg font-semibold mb-4">Equipamiento</h3>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                        {vehicle.features.map((feature, index) => (
+                        {vehicle.features.map((feature: string, index: number) => (
                           <div key={index} className="flex items-center gap-2">
                             <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                             <span className="text-sm">{feature}</span>
