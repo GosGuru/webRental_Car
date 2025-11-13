@@ -60,7 +60,7 @@ const getTransmissionLabel = (type: string | null) => {
 }
 
 export function VehicleCard({ vehicle }: VehicleCardProps) {
-  const mainImage = vehicle.images[0]?.url || "/placeholder-car.jpg"
+  const mainImage = vehicle.images[0]?.url || "https://placehold.co/800x600/e5e7eb/6b7280?text=Sin+Imagen"
   const imageAlt = vehicle.images[0]?.alt || `${vehicle.brand} ${vehicle.model}`
 
   return (

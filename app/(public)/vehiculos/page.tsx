@@ -5,7 +5,8 @@ import { VehicleFilters } from "@/components/vehicles/VehicleFilters"
 import { VehicleGridSkeleton } from "@/components/vehicles/VehicleCardSkeleton"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import type { Vehicle, VehiclesResponse, CategoriesResponse } from "@/types/api"
+import prisma from "@/lib/prisma"
+import type { Vehicle } from "@/types/api"
 
 export const metadata: Metadata = {
   title: "Catálogo de Vehículos - Coches de Segunda Mano",
@@ -37,28 +38,74 @@ interface SearchParams {
   page?: string
 }
 
-async function getVehicles(params: SearchParams): Promise<VehiclesResponse | null> {
+async function getVehicles(params: SearchParams) {
   try {
-    const searchParams = new URLSearchParams()
-    
-    Object.entries(params).forEach(([key, value]) => {
-      if (value) searchParams.set(key, value)
-    })
+    const page = parseInt(params.page || "1")
+    const limit = 12
+    const skip = (page - 1) * limit
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/vehicles?${searchParams.toString()}`,
-      { 
-        cache: 'no-store',
-        next: { revalidate: 30 } // Revalidar cada 30 segundos
-      }
-    )
-
-    if (!res.ok) {
-      console.error('Failed to fetch vehicles:', res.status)
-      return null
+    // Construir filtros
+    const where: any = {
+      isVisible: true,
+      status: "AVAILABLE",
     }
 
-    return res.json()
+    if (params.brand) where.brand = { contains: params.brand, mode: "insensitive" }
+    if (params.categoryId) where.categoryId = params.categoryId
+    if (params.fuelType) where.fuelType = params.fuelType
+    if (params.transmission) where.transmission = params.transmission
+    if (params.bodyType) where.bodyType = params.bodyType
+    
+    if (params.minPrice || params.maxPrice) {
+      where.price = {}
+      if (params.minPrice) where.price.gte = parseFloat(params.minPrice)
+      if (params.maxPrice) where.price.lte = parseFloat(params.maxPrice)
+    }
+    
+    if (params.minYear || params.maxYear) {
+      where.year = {}
+      if (params.minYear) where.year.gte = parseInt(params.minYear)
+      if (params.maxYear) where.year.lte = parseInt(params.maxYear)
+    }
+    
+    if (params.search) {
+      where.OR = [
+        { brand: { contains: params.search, mode: "insensitive" } },
+        { model: { contains: params.search, mode: "insensitive" } },
+        { description: { contains: params.search, mode: "insensitive" } },
+      ]
+    }
+
+    // Obtener vehículos y total
+    const [vehicles, total] = await Promise.all([
+      prisma.vehicle.findMany({
+        where,
+        skip,
+        take: limit,
+        include: {
+          images: {
+            orderBy: { order: "asc" },
+            take: 1,
+          },
+          category: true,
+        },
+        orderBy: [
+          { isFeatured: "desc" },
+          { createdAt: "desc" },
+        ],
+      }),
+      prisma.vehicle.count({ where }),
+    ])
+
+    return {
+      data: vehicles,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    }
   } catch (error) {
     console.error('Error fetching vehicles:', error)
     return null
@@ -67,18 +114,14 @@ async function getVehicles(params: SearchParams): Promise<VehiclesResponse | nul
 
 async function getBrands(): Promise<string[]> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/vehicles?limit=1000`,
-      { cache: 'no-store' }
-    )
+    const vehicles = await prisma.vehicle.findMany({
+      where: { isVisible: true, status: "AVAILABLE" },
+      select: { brand: true },
+      distinct: ['brand'],
+      orderBy: { brand: 'asc' },
+    })
     
-    if (!res.ok) return []
-    
-    const data: VehiclesResponse = await res.json()
-    if (!data.data) return []
-    
-    const brands = [...new Set(data.data.map((v: Vehicle) => v.brand))].sort()
-    return brands
+    return vehicles.map(v => v.brand)
   } catch (error) {
     console.error('Error fetching brands:', error)
     return []
@@ -86,15 +129,16 @@ async function getBrands(): Promise<string[]> {
 }
 
 async function getCategories() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/categories`,
-    { cache: 'no-store' }
-  )
-  
-  if (!res.ok) return []
-  
-  const data: CategoriesResponse = await res.json()
-  return data.data || []
+  try {
+    const categories = await prisma.category.findMany({
+      orderBy: { name: 'asc' },
+    })
+    
+    return categories
+  } catch (error) {
+    console.error('Error fetching categories:', error)
+    return []
+  }
 }
 
 async function VehicleGrid({ params }: { params: SearchParams }) {
