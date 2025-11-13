@@ -120,7 +120,7 @@ export default async function AdminDashboard() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {recentVehicles.map((vehicle) => (
+            {recentVehicles.map((vehicle: any) => (
               <div
                 key={vehicle.id}
                 className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0"
