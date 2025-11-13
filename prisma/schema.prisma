@@ -1,0 +1,264 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===========================
+// USER MANAGEMENT
+// ===========================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String    // bcrypt hashed
+  image         String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  vehicles      Vehicle[] // Vehicles created by this user
+  inquiries     Inquiry[] // Inquiries made by this user
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// ===========================
+// VEHICLE MANAGEMENT
+// ===========================
+
+model Vehicle {
+  id               String          @id @default(cuid())
+  slug             String          @unique // URL-friendly identifier
+  
+  // Basic Info
+  brand            String
+  model            String
+  year             Int
+  price            Float
+  priceNegotiable  Boolean         @default(false)
+  
+  // Status
+  status           VehicleStatus   @default(AVAILABLE)
+  isVisible        Boolean         @default(true)
+  isFeatured       Boolean         @default(false)
+  
+  // Specifications
+  mileage          Int?            // in kilometers
+  fuelType         FuelType?
+  transmission     Transmission?
+  bodyType         BodyType?
+  exteriorColor    String?
+  interiorColor    String?
+  doors            Int?
+  seats            Int?
+  
+  // Engine
+  engineSize       String?         // e.g., "2.0L", "1.6L"
+  enginePower      String?         // e.g., "150CV", "200HP"
+  
+  // Additional Details
+  vin              String?         @unique // Vehicle Identification Number
+  licensePlate     String?
+  previousOwners   Int?
+  
+  // Description & Features
+  description      String          @db.Text
+  features         String[]        // Array of features
+  
+  // SEO
+  metaTitle        String?
+  metaDescription  String?
+  
+  // Timestamps
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  publishedAt      DateTime?
+  
+  // Relations
+  categoryId       String?
+  category         Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  
+  images           Image[]
+  inquiries        Inquiry[]
+  
+  createdById      String?
+  createdBy        User?           @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([status, isVisible])
+  @@index([brand, model])
+  @@index([price])
+  @@index([year])
+  @@index([categoryId])
+  @@map("vehicles")
+}
+
+model Image {
+  id          String   @id @default(cuid())
+  url         String
+  alt         String?
+  width       Int?
+  height      Int?
+  order       Int      @default(0) // Display order
+  cloudinaryId String? // For Cloudinary integration
+  
+  vehicleId   String
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([vehicleId])
+  @@map("images")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  icon        String?   // Icon name or URL
+  order       Int       @default(0)
+  
+  vehicles    Vehicle[]
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("categories")
+}
+
+// ===========================
+// INQUIRIES / CONTACT
+// ===========================
+
+model Inquiry {
+  id        String        @id @default(cuid())
+  
+  // Contact Info
+  name      String
+  email     String
+  phone     String?
+  message   String        @db.Text
+  
+  // Status
+  status    InquiryStatus @default(PENDING)
+  
+  // Related Vehicle (optional)
+  vehicleId String?
+  vehicle   Vehicle?      @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  
+  // User (if logged in)
+  userId    String?
+  user      User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  // Admin Notes
+  adminNotes String?      @db.Text
+  
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status])
+  @@index([vehicleId])
+  @@map("inquiries")
+}
+
+// ===========================
+// ENUMS
+// ===========================
+
+enum VehicleStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+  PENDING
+}
+
+enum FuelType {
+  GASOLINE
+  DIESEL
+  ELECTRIC
+  HYBRID
+  PLUGIN_HYBRID
+  GAS
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+  SEMI_AUTOMATIC
+}
+
+enum BodyType {
+  SEDAN
+  COUPE
+  HATCHBACK
+  WAGON
+  SUV
+  PICKUP
+  VAN
+  CONVERTIBLE
+  MINIVAN
+}
+
+enum InquiryStatus {
+  PENDING
+  CONTACTED
+  RESOLVED
+  SPAM
+}
