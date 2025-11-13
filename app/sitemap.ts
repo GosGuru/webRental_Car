@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
 
   // Rutas de vehículos
-  const vehicleUrls = vehicles.map((vehicle) => ({
+  const vehicleUrls = vehicles.map((vehicle: any) => ({
     url: `${baseUrl}/vehiculos/${vehicle.slug}`,
     lastModified: vehicle.updatedAt,
     changeFrequency: 'weekly' as const,

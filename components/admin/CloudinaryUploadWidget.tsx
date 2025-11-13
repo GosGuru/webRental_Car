@@ -23,7 +23,7 @@ export default function CloudinaryUploadWidget({
       {/* Preview de imágenes actuales */}
       {currentImages.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {currentImages.map((url, index) => (
+          {currentImages.map((url: string, index: number) => (
             <div key={index} className="relative group">
               <div className="relative aspect-video rounded-lg overflow-hidden border">
                 <Image

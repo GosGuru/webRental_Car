@@ -97,7 +97,7 @@ export function VehicleFilters({ brands = [], categories = [] }: VehicleFiltersP
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todas las marcas</SelectItem>
-                {brands.map((b) => (
+                {brands.map((b: string) => (
                   <SelectItem key={b} value={b}>
                     {b}
                   </SelectItem>
@@ -117,7 +117,7 @@ export function VehicleFilters({ brands = [], categories = [] }: VehicleFiltersP
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todas las categorías</SelectItem>
-                {categories.map((cat) => (
+                {categories.map((cat: any) => (
                   <SelectItem key={cat.id} value={cat.id}>
                     {cat.name}
                   </SelectItem>

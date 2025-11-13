@@ -160,7 +160,7 @@ async function VehicleGrid({ params }: { params: SearchParams }) {
           )}
           
           <div className="flex items-center gap-2">
-            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((pageNum) => (
+            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((pageNum: number) => (
               <Button
                 key={pageNum}
                 asChild

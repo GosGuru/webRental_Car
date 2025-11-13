@@ -84,7 +84,7 @@ export function VehicleGallery({
       {/* Miniaturas */}
       {images.length > 1 && (
         <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
-          {images.map((image, index) => (
+          {images.map((image: any, index: number) => (
             <button
               key={image.id}
               onClick={() => setCurrentIndex(index)}

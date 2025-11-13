@@ -126,7 +126,7 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
                 </TableCell>
               </TableRow>
             ) : (
-              filteredVehicles.map((vehicle) => (
+              filteredVehicles.map((vehicle: any) => (
                 <TableRow key={vehicle.id}>
                   <TableCell>
                     {vehicle.images[0] ? (
