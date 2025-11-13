@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import prisma from "@/lib/prisma"
 
+type RouteContext = {
+  params: Promise<{ id: string }>
+}
+
 const vehicleUpdateSchema = z.object({
   brand: z.string().min(1).optional(),
   model: z.string().min(1).optional(),
@@ -30,9 +34,9 @@ const vehicleUpdateSchema = z.object({
 // GET /api/vehicles/[id] - Obtener vehículo por ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params
+  context: RouteContext
+): Promise<NextResponse> {
+  const { id } = await context.params
   try {
     const vehicle = await prisma.vehicle.findUnique({
       where: { id },
@@ -71,9 +75,9 @@ export async function GET(
 // PUT /api/vehicles/[id] - Actualizar vehículo
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params
+  context: RouteContext
+): Promise<NextResponse> {
+  const { id } = await context.params
   try {
     const body = await request.json()
     
@@ -170,9 +174,9 @@ export async function PUT(
 // DELETE /api/vehicles/[id] - Eliminar vehículo
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params
+  context: RouteContext
+): Promise<NextResponse> {
+  const { id } = await context.params
   try {
     // Verificar que el vehículo existe
     const vehicle = await prisma.vehicle.findUnique({

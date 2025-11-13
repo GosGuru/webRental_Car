@@ -75,14 +75,15 @@ export default async function AdminLayout({
       {/* Main content */}
       <div className="lg:pl-64 pb-16 lg:pb-0">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-card px-4 lg:px-6 shadow-sm">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-2 lg:gap-4 border-b bg-card px-4 lg:px-6 shadow-sm">
           <MobileMenu userName={session.user.name} userEmail={session.user.email} />
-          <div className="flex-1">
-            <h1 className="text-lg lg:text-xl font-semibold">Panel de Administración</h1>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-base lg:text-xl font-semibold truncate">Panel de Administración</h1>
           </div>
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm" className="shrink-0 text-xs lg:text-sm">
             <Link href="/" target="_blank">
-              Ver Sitio
+              <span className="hidden sm:inline">Ver Sitio</span>
+              <span className="sm:hidden">Sitio</span>
             </Link>
           </Button>
         </header>

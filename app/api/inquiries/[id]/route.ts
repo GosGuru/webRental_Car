@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
 
+type RouteContext = {
+  params: Promise<{ id: string }>
+}
+
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: RouteContext
+): Promise<NextResponse> {
   try {
     const session = await auth()
 
@@ -13,6 +17,7 @@ export async function PATCH(
       return NextResponse.json({ error: "No autorizado" }, { status: 401 })
     }
 
+    const { id } = await context.params
     const { status } = await request.json()
 
     if (!["PENDING", "CONTACTED", "RESOLVED", "SPAM"].includes(status)) {
@@ -20,7 +25,7 @@ export async function PATCH(
     }
 
     const inquiry = await prisma.inquiry.update({
-      where: { id: params.id },
+      where: { id },
       data: { status },
     })
 
@@ -36,8 +41,8 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: RouteContext
+): Promise<NextResponse> {
   try {
     const session = await auth()
 
@@ -45,8 +50,10 @@ export async function DELETE(
       return NextResponse.json({ error: "No autorizado" }, { status: 401 })
     }
 
+    const { id } = await context.params
+
     await prisma.inquiry.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ success: true })
