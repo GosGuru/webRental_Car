@@ -105,7 +105,7 @@ export default async function HomePage() {
         {/* Imagen de fondo */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2083"
+            src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070"
             alt="Autos Bustamante - Concesionario"
             fill
             className="object-cover"
