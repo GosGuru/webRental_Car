@@ -5,6 +5,7 @@ import { Menu, LogOut, Car } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { 
@@ -40,10 +41,20 @@ export function MobileMenu({ userName, userEmail }: MobileMenuProps) {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
-        <SheetHeader className="border-b p-6 bg-primary/5">
-          <SheetTitle className="flex items-center gap-2">
-            <Car className="h-6 w-6 text-primary" />
-            <span>Admin Panel</span>
+        <SheetHeader className="border-b p-6 bg-linear-to-br from-primary/10 via-primary/5 to-background">
+          <SheetTitle className="flex items-center gap-3 justify-center">
+            <div className="relative w-10 h-10">
+              <Image
+                src="/logo-autosbustamante.webp"
+                alt="Autos Bustamante Admin"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col items-start">
+              <span className="font-bold text-sm leading-tight">Autos Bustamante</span>
+              <span className="text-xs text-primary font-medium">Panel Admin</span>
+            </div>
           </SheetTitle>
         </SheetHeader>
 

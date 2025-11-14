@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import Link from "next/link"
+import Image from "next/image"
 import { 
   LayoutDashboard, 
   Car, 
@@ -30,10 +31,21 @@ export default async function AdminLayout({
       <aside className="hidden lg:fixed lg:left-0 lg:top-0 lg:z-40 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:border-r lg:bg-card lg:shadow-sm">
         <div className="flex h-full flex-col" suppressHydrationWarning>
           {/* Logo */}
-          <div className="flex h-16 items-center border-b px-6 bg-primary/5" suppressHydrationWarning>
-            <Link href="/admin" className="flex items-center gap-2 group">
-              <Car className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
-              <span className="font-bold text-lg">Admin Panel</span>
+          <div className="flex h-20 items-center justify-center border-b px-6 bg-linear-to-br from-primary/10 via-primary/5 to-background" suppressHydrationWarning>
+            <Link href="/admin" className="flex items-center gap-3 group">
+              <div className="relative w-12 h-12 transition-transform group-hover:scale-110">
+                <Image
+                  src="/logo-autosbustamante.webp"
+                  alt="Autos Bustamante Admin"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-base leading-tight">Autos Bustamante</span>
+                <span className="text-xs text-primary font-medium">Panel Admin</span>
+              </div>
             </Link>
           </div>
 
