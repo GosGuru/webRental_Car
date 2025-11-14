@@ -2,7 +2,8 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import type { Metadata } from "next"
-import { ArrowLeft, Calendar, Gauge, Fuel, Cog, Car, MapPin, Phone, Mail, MessageCircle } from "lucide-react"
+import { ArrowLeft, Calendar, Gauge, Fuel, Cog, Car, MapPin, Phone, Mail } from "lucide-react"
+import { FaWhatsapp } from "react-icons/fa"
 import prisma from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -394,7 +395,7 @@ export default async function VehicleDetailPage({
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2"
                   >
-                    <MessageCircle className="h-5 w-5" />
+                    <FaWhatsapp className="h-5 w-5" />
                     Contactar por WhatsApp
                   </a>
                 </Button>

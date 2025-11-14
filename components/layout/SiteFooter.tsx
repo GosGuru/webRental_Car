@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Car, Phone, Mail, MapPin } from "lucide-react"
+import Image from "next/image"
+import { Phone, Mail, MapPin } from "lucide-react"
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()
@@ -10,11 +11,17 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo y descripción */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-                <Car className="h-5 w-5" />
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-12 h-12 transition-all group-hover:scale-105">
+                <Image
+                  src="/logo-autosbustamante.webp"
+                  alt="Autos Bustamante"
+                  fill
+                  className="object-contain"
+                  sizes="48px"
+                />
               </div>
-              <span>Autos Bustamante</span>
+              <span className="font-bold text-lg">Autos Bustamante</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               Tu concesionario de confianza en Cabra, Córdoba. Venta de vehículos de segunda mano con garantía.

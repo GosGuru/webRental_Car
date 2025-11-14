@@ -26,12 +26,12 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-muted/20" suppressHydrationWarning>
+    <div className="min-h-screen bg-muted/20">
       {/* Desktop Sidebar - Hidden on mobile */}
       <aside className="hidden lg:fixed lg:left-0 lg:top-0 lg:z-40 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:border-r lg:bg-card lg:shadow-sm">
-        <div className="flex h-full flex-col" suppressHydrationWarning>
+        <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-20 items-center justify-center border-b px-6 bg-linear-to-br from-primary/10 via-primary/5 to-background" suppressHydrationWarning>
+          <div className="flex h-20 items-center justify-center border-b px-6 bg-linear-to-br from-primary/10 via-primary/5 to-background">
             <Link href="/admin" className="flex items-center gap-3 group">
               <div className="relative w-12 h-12 transition-transform group-hover:scale-110">
                 <Image

@@ -5,11 +5,18 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  env: {
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
     formats: ["image/avif", "image/webp"],

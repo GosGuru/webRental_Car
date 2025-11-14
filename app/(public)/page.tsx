@@ -53,9 +53,9 @@ async function FeaturedVehicles() {
 
   return (
     <section className="py-12 bg-background">
-      <div className="container mx-auto px-4" suppressHydrationWarning>
-        <div className="flex items-center justify-between mb-8" suppressHydrationWarning>
-          <div suppressHydrationWarning>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between mb-8">
+          <div>
             <h2 className="text-3xl font-bold mb-2">Vehículos Destacados</h2>
             <p className="text-muted-foreground">
               Descubre nuestras mejores ofertas seleccionadas para ti
@@ -69,10 +69,10 @@ async function FeaturedVehicles() {
           </Button>
         </div>
 
-        {/* Carrusel horizontal con drag en desktop */}
-        <div className="relative" suppressHydrationWarning>
-          <DraggableScrollContainer className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-            <div className="flex gap-6 min-w-min" suppressHydrationWarning>
+        {/* Carrusel horizontal con flechas */}
+        <div>
+          <DraggableScrollContainer className="-mx-4 px-4">
+            <div className="flex gap-6 min-w-min">
               {vehicles.map((vehicle: VehicleWithRelations, index: number) => (
                 <div key={vehicle.id} className="w-[320px] md:w-[360px] shrink-0">
                   <VehicleCard vehicle={vehicle} priority={index < 3} />
@@ -82,7 +82,7 @@ async function FeaturedVehicles() {
           </DraggableScrollContainer>
         </div>
 
-        <div className="text-center mt-8" suppressHydrationWarning>
+        <div className="text-center mt-8">
           <Button variant="outline" asChild>
             <Link href="/vehiculos">
               Todos nuestros vehículos
@@ -101,9 +101,24 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-linear-to-br from-primary/5 via-primary/10 to-background border-b">
-        <div className="container mx-auto px-4 py-20 md:py-28" suppressHydrationWarning>
-          <div className="max-w-3xl" suppressHydrationWarning>
+      <section className="relative border-b overflow-hidden">
+        {/* Imagen de fondo */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070"
+            alt="Autos Bustamante - Concesionario"
+            fill
+            className="object-cover"
+            priority
+            quality={85}
+          />
+          {/* Overlay oscuro */}
+          <div className="absolute inset-0 bg-linear-to-r from-background/95 via-background/85 to-background/70" />
+        </div>
+
+        {/* Contenido */}
+        <div className="relative z-10 container mx-auto px-4 py-20 md:py-28">
+          <div className="max-w-3xl">
             <FadeInUp>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
                 Concesionario de confianza en{" "}
@@ -117,7 +132,7 @@ export default async function HomePage() {
               </p>
             </FadeInUp>
             <FadeInUp delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4" suppressHydrationWarning>
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" asChild>
                   <Link href="/vehiculos">
                     Quiero ver autos Bustamante
@@ -135,14 +150,18 @@ export default async function HomePage() {
             
             {/* Stats */}
             <FadeInUp delay={0.3}>
-              <div className="grid grid-cols-2 gap-6 mt-12 max-w-md" suppressHydrationWarning>
-                <div suppressHydrationWarning>
-                  <div className="text-3xl font-bold text-primary">{stats.available}+</div>
-                  <div className="text-sm text-muted-foreground">Vehículos Disponibles</div>
+              <div className="grid grid-cols-3 gap-6 mt-12 max-w-3xl">
+                <div>
+                  <div className="text-3xl font-bold text-primary">1000+</div>
+                  <div className="text-sm text-muted-foreground">Vehículos vendidos</div>
                 </div>
-                <div suppressHydrationWarning>
-                  <div className="text-3xl font-bold text-primary">15+</div>
-                  <div className="text-sm text-muted-foreground">Años de Experiencia</div>
+                <div>
+                  <div className="text-3xl font-bold text-primary">500+</div>
+                  <div className="text-sm text-muted-foreground">Clientes satisfechos</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary">5+</div>
+                  <div className="text-sm text-muted-foreground">Años en el negocio</div>
                 </div>
               </div>
             </FadeInUp>
@@ -157,9 +176,9 @@ export default async function HomePage() {
 
       {/* Por qué elegirnos */}
       <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4" suppressHydrationWarning>
+        <div className="container mx-auto px-4">
           <FadeInUp>
-            <div className="text-center mb-12" suppressHydrationWarning>
+            <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">¿Por qué elegir Autos Bustamante?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Nos comprometemos a ofrecerte la mejor experiencia en la compra de tu vehículo
@@ -168,16 +187,30 @@ export default async function HomePage() {
           </FadeInUp>
 
           <StaggerContainer>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" suppressHydrationWarning>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <StaggerItem>
                 <Card>
-                  <CardContent className="p-6 text-center" suppressHydrationWarning>
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4" suppressHydrationWarning>
+                  <CardContent className="p-6 text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
+                      <Car className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold mb-2">Amplio inventario</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Contamos con un amplio inventario de vehículos de diferentes marcas, modelos y precios. Podrás encontrar el vehículo que se ajuste a tus necesidades y presupuesto.
+                    </p>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+
+              <StaggerItem>
+                <Card>
+                  <CardContent className="p-6 text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
                       <CheckCircle className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="font-semibold mb-2">Vehículos Verificados</h3>
+                    <h3 className="font-semibold mb-2">Experiencia y conocimiento</h3>
                     <p className="text-sm text-muted-foreground">
-                      Todos nuestros coches pasan una inspección exhaustiva
+                      Nuestro equipo de expertos en automóviles cuenta con años de experiencia en la industria. Ellos conocen el mercado y pueden brindarte asesoramiento experto para ayudarte a tomar la mejor decisión de compra o venta.
                     </p>
                   </CardContent>
                 </Card>
@@ -189,37 +222,9 @@ export default async function HomePage() {
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
                       <Shield className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="font-semibold mb-2">Garantía Incluida</h3>
+                    <h3 className="font-semibold mb-2">Proceso transparente</h3>
                     <p className="text-sm text-muted-foreground">
-                      Garantía en todos nuestros vehículos para tu tranquilidad
-                    </p>
-                  </CardContent>
-                </Card>
-              </StaggerItem>
-
-              <StaggerItem>
-                <Card>
-                  <CardContent className="p-6 text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
-                      <Euro className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Financiación</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Opciones de financiación adaptadas a tus necesidades
-                    </p>
-                  </CardContent>
-                </Card>
-              </StaggerItem>
-
-              <StaggerItem>
-                <Card>
-                  <CardContent className="p-6 text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
-                      <Car className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Amplio Catálogo</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Gran variedad de marcas y modelos para elegir
+                      Nos enorgullece brindar un proceso transparente y confiable. Te proporcionaremos toda la información necesaria sobre el historial del vehículo, su condición y cualquier detalle relevante para que puedas tomar una decisión informada.
                     </p>
                   </CardContent>
                 </Card>
@@ -231,22 +236,22 @@ export default async function HomePage() {
 
       {/* Contacto y Ubicación */}
       <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4" suppressHydrationWarning>
-          <div className="text-center mb-12" suppressHydrationWarning>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Visítanos o Contáctanos</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Estamos aquí para ayudarte a encontrar el vehículo perfecto
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto" suppressHydrationWarning>
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <Card>
-              <CardContent className="p-6" suppressHydrationWarning>
-                <div className="flex items-start gap-4" suppressHydrationWarning>
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 shrink-0" suppressHydrationWarning>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 shrink-0">
                     <Phone className="h-5 w-5 text-primary" />
                   </div>
-                  <div className="flex-1" suppressHydrationWarning>
+                  <div className="flex-1">
                     <h3 className="font-semibold mb-2">Teléfono</h3>
                     <a href="tel:+34675689111" className="text-sm text-primary hover:underline block mb-2">
                       675 689 111
@@ -273,7 +278,7 @@ export default async function HomePage() {
                   <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 shrink-0">
                     <Mail className="h-5 w-5 text-primary" />
                   </div>
-                  <div suppressHydrationWarning>
+                  <div>
                     <h3 className="font-semibold mb-1">Email</h3>
                     <a href="mailto:autosbustamante@hotmail.com" className="text-sm text-primary hover:underline break-all">
                       autosbustamante@hotmail.com
@@ -290,7 +295,7 @@ export default async function HomePage() {
                     <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 shrink-0">
                       <MapPin className="h-5 w-5 text-primary" />
                     </div>
-                    <div suppressHydrationWarning>
+                    <div>
                       <h3 className="font-semibold mb-1">Dirección</h3>
                       <p className="text-sm text-muted-foreground">
                         Camino de Alcolea, 27<br />
@@ -316,7 +321,7 @@ export default async function HomePage() {
             </Card>
           </div>
 
-          <div className="text-center mt-8" suppressHydrationWarning>
+          <div className="text-center mt-8">
             <Button asChild size="lg">
               <Link href="/vehiculos">
                 Nuestros vehículos
