@@ -101,45 +101,45 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative border-b overflow-hidden">
+      <section className="relative border-b overflow-hidden min-h-[600px] md:min-h-[700px] flex items-center">
         {/* Imagen de fondo */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070"
+            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2083"
             alt="Autos Bustamante - Concesionario"
             fill
             className="object-cover"
             priority
             quality={85}
           />
-          {/* Overlay oscuro */}
-          <div className="absolute inset-0 bg-linear-to-r from-background/95 via-background/85 to-background/70" />
+          {/* Overlay oscuro - más suave en desktop */}
+          <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/30 md:from-black/60 md:via-black/40 md:to-transparent" />
         </div>
 
-        {/* Contenido */}
-        <div className="relative z-10 container mx-auto px-4 py-20 md:py-28">
-          <div className="max-w-3xl">
+        {/* Contenido - Centrado en desktop */}
+        <div className="relative z-10 container mx-auto px-4 py-20 md:py-0">
+          <div className="max-w-3xl md:max-w-2xl lg:max-w-3xl md:mx-auto md:text-center">
             <FadeInUp>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                 Concesionario de confianza en{" "}
                 <span className="text-primary">Cantabria, Santander</span>
               </h1>
             </FadeInUp>
             <FadeInUp delay={0.1}>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-200 mb-8">
                 Venta de vehículos de segunda mano con garantía y financiación. 
                 Encuentra tu coche ideal al mejor precio.
               </p>
             </FadeInUp>
             <FadeInUp delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" asChild>
+              <div className="flex flex-col sm:flex-row gap-4 md:justify-center">
+                <Button size="lg" asChild className="shadow-lg">
                   <Link href="/vehiculos">
                     Quiero ver autos Bustamante
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button size="lg" variant="outline" asChild className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 shadow-lg">
                   <a href="tel:+34675689111">
                     <Phone className="mr-2 h-5 w-5" />
                     Llámanos: 675 689 111
@@ -150,18 +150,18 @@ export default async function HomePage() {
             
             {/* Stats */}
             <FadeInUp delay={0.3}>
-              <div className="grid grid-cols-3 gap-6 mt-12 max-w-3xl">
-                <div>
-                  <div className="text-3xl font-bold text-primary">1000+</div>
-                  <div className="text-sm text-muted-foreground">Vehículos vendidos</div>
+              <div className="grid grid-cols-3 gap-4 md:gap-8 mt-12 md:mt-16 max-w-3xl md:mx-auto">
+                <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/20">
+                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">1000+</div>
+                  <div className="text-xs md:text-sm text-gray-200 mt-1">Vehículos vendidos</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary">500+</div>
-                  <div className="text-sm text-muted-foreground">Clientes satisfechos</div>
+                <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/20">
+                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">500+</div>
+                  <div className="text-xs md:text-sm text-gray-200 mt-1">Clientes satisfechos</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary">5+</div>
-                  <div className="text-sm text-muted-foreground">Años en el negocio</div>
+                <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/20">
+                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">5+</div>
+                  <div className="text-xs md:text-sm text-gray-200 mt-1">Años en el negocio</div>
                 </div>
               </div>
             </FadeInUp>
