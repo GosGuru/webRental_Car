@@ -101,7 +101,7 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative border-b overflow-hidden min-h-[600px] md:min-h-[700px] flex items-center">
+      <section className="relative border-b overflow-hidden min-h-[600px] md:min-h-[750px] flex items-center">
         {/* Imagen de fondo */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -117,29 +117,29 @@ export default async function HomePage() {
         </div>
 
         {/* Contenido - Centrado en desktop */}
-        <div className="relative z-10 container mx-auto px-4 py-20 md:py-0">
-          <div className="max-w-3xl md:max-w-2xl lg:max-w-3xl md:mx-auto md:text-center">
+        <div className="relative z-10 container mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-4xl md:mx-auto md:text-center">
             <FadeInUp>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 text-white leading-tight md:leading-tight lg:leading-tight">
                 Concesionario de confianza en{" "}
-                <span className="text-primary">Cantabria, Santander</span>
+                <span className="text-primary block md:inline mt-2 md:mt-0">Cantabria, Santander</span>
               </h1>
             </FadeInUp>
             <FadeInUp delay={0.1}>
-              <p className="text-lg md:text-xl lg:text-2xl text-gray-200 mb-8">
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-200 mb-10 md:mb-12 max-w-3xl md:mx-auto leading-relaxed">
                 Venta de vehículos de segunda mano con garantía y financiación. 
                 Encuentra tu coche ideal al mejor precio.
               </p>
             </FadeInUp>
             <FadeInUp delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4 md:justify-center">
-                <Button size="lg" asChild className="shadow-lg">
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6 md:justify-center mb-16 md:mb-20">
+                <Button size="lg" asChild className="shadow-lg h-14 md:h-16 text-base md:text-lg px-8">
                   <Link href="/vehiculos">
                     Quiero ver autos Bustamante
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 shadow-lg">
+                <Button size="lg" variant="outline" asChild className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 shadow-lg h-14 md:h-16 text-base md:text-lg px-8">
                   <a href="tel:+34675689111">
                     <Phone className="mr-2 h-5 w-5" />
                     Llámanos: 675 689 111
@@ -150,18 +150,18 @@ export default async function HomePage() {
             
             {/* Stats */}
             <FadeInUp delay={0.3}>
-              <div className="grid grid-cols-3 gap-4 md:gap-8 mt-12 md:mt-16 max-w-3xl md:mx-auto">
-                <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/20">
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">1000+</div>
-                  <div className="text-xs md:text-sm text-gray-200 mt-1">Vehículos vendidos</div>
+              <div className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-4xl md:mx-auto">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 md:p-8 border border-white/20 transition-all hover:bg-white/15 hover:scale-105">
+                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">1000+</div>
+                  <div className="text-xs md:text-sm lg:text-base text-gray-200">Vehículos vendidos</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/20">
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">500+</div>
-                  <div className="text-xs md:text-sm text-gray-200 mt-1">Clientes satisfechos</div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 md:p-8 border border-white/20 transition-all hover:bg-white/15 hover:scale-105">
+                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">500+</div>
+                  <div className="text-xs md:text-sm lg:text-base text-gray-200">Clientes satisfechos</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/20">
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">5+</div>
-                  <div className="text-xs md:text-sm text-gray-200 mt-1">Años en el negocio</div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 md:p-8 border border-white/20 transition-all hover:bg-white/15 hover:scale-105">
+                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">5+</div>
+                  <div className="text-xs md:text-sm lg:text-base text-gray-200">Años en el negocio</div>
                 </div>
               </div>
             </FadeInUp>
